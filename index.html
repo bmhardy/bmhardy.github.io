@@ -18,8 +18,7 @@
                 googletag.pubads().enableSingleRequest();
                 googletag.enableServices();
             });
-            var adUnit = [{
-                code: 'div-1',
+            var adUnit = {
                 mediaTypes: {
                     banner: {
                         sizes: sizes
@@ -60,9 +59,15 @@
                       secure: 0,
                     },
                 }]
-            }];
+            };
+            var adUnits = [];
+            for (var i = 1; i < 6; i++) {
+              var unit = adUnit;
+              unit.code = `div-${i}`;
+              adUnits.push(unit);
+            }
             pbjs.que.push(function() {
-                pbjs.addAdUnits(adUnit);
+                pbjs.addAdUnits(adUnits);
             });
             function refreshBid(slot, slotName) {
                 pbjs.que.push(function() {
@@ -78,22 +83,31 @@
             }
         </script>
 
-        <script>
-            var slot1;
-            googletag.cmd.push(function() {
-                slot1 = googletag.defineSlot('/188641797/test', [[300, 250]], 'div-1')
-                slot1.addService(googletag.pubads());
-                googletag.display('div-1');
-                refreshBid(slot1, 'div-1');
-            });
-        </script>
     </head>
 
     <body>
         <h1>Individual Ad Unit Refresh Example</h1>
         <h5>Div-1</h5>
-        <p><button onclick="refreshBid(slot1, 'div-1')">Refresh Ad Unit</button></p>
         <div id='div-1'>
+            <script>
+              googletag.cmd.push(function() {
+                slot1 = googletag.defineSlot('/188641797/test', [[300, 250]], 'div-1')
+                slot1.addService(googletag.pubads());
+                googletag.display('div-1');
+                refreshBid(slot1, 'div-1');
+              });
+            </script>
+        </div>
+        <h5>Div-2</h5>
+        <div id='div-2'>
+            <script>
+              googletag.cmd.push(function() {
+                slot1 = googletag.defineSlot('/188641797/test', [[300, 250]], 'div-2')
+                slot1.addService(googletag.pubads());
+                googletag.display('div-2');
+                refreshBid(slot1, 'div-2');
+              });
+            </script>
         </div>
 
     </body>
